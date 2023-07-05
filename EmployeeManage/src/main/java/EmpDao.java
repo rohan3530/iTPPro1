@@ -13,8 +13,8 @@ public class EmpDao
 		Connection con = null;
 		try
 		{
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","password@00");
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/emp","root","root");
 		}
 		catch(Exception e1)
 		{
@@ -28,7 +28,7 @@ public class EmpDao
 		try
 		{
 			Connection con = EmpDao.getConnection();
-			PreparedStatement ps = con.prepareStatement("insert into DB1.employee(id,name,password,email,country)values(?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into emp.employee(id,name,password,email,country)values(?,?,?,?,?)");
 			ps.setInt(1, e.getId());
 			ps.setString(2, e.getnName());
 			ps.setString(3, e.getpassword());
@@ -50,7 +50,7 @@ public class EmpDao
 		try
 		{
 			Connection con = EmpDao.getConnection();
-			PreparedStatement ps = con.prepareStatement("update DB1.employee set name=?,password=?,email=?,country=? where id=?");
+			PreparedStatement ps = con.prepareStatement("update emp.employee set name=?,password=?,email=?,country=? where id=?");
 			ps.setString(1,e.getnName());
 			ps.setString(2,e.getpassword());
 			ps.setString(3,e.getemail());
@@ -72,7 +72,7 @@ public class EmpDao
 		try
 		{
 			Connection con = EmpDao.getConnection();
-			PreparedStatement ps = con.prepareStatement("delete from DB1.employee where id=?");
+			PreparedStatement ps = con.prepareStatement("delete from emp.employee where id=?");
 			ps.setInt(1,id);
 			status = ps.executeUpdate();
 			con.close();
@@ -89,7 +89,7 @@ public class EmpDao
 		try
 		{
 			Connection con = EmpDao.getConnection();
-			PreparedStatement ps = con.prepareStatement("select * from DB1.employee where id=?");
+			PreparedStatement ps = con.prepareStatement("select * from emp.employee where id=?");
 			ps.setInt(1,id);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
@@ -114,7 +114,7 @@ public class EmpDao
 		try
 		{
 			Connection con = EmpDao.getConnection();
-			PreparedStatement ps = con.prepareStatement("select * from DB1.employee");
+			PreparedStatement ps = con.prepareStatement("select * from emp.employee");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
